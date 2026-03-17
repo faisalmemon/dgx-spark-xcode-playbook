@@ -4,12 +4,12 @@
 
 This playbook shows how to give Apple Xcode its own private, locally-hosted coding model — no cloud API keys, no usage fees, no data leaving your network.
 
-I am aiming here for a "Pro-Developer" setup which is attempting to get close to the enterprise offerings from Claude or OpenAI.  So my "AI token" server is a Nvidia DGX Spark (a 1 PetaFLOP computer at FP4 precision).  The Spark has 128GB RAM (shared between CPU and GPU) and 4 TB storage, and a 20-core CPU.  It offers the Grace Blackwell (GB10) architecture.
+I am aiming here for a "Pro-Developer" setup which is attempting to get close to the enterprise offerings from Claude or OpenAI.  So my "AI token" server is a Nvidia DGX Spark (a 1 PetaFLOP computer at FP4 precision).  The Spark has 128GB RAM (shared between CPU and GPU), 4 TB storage, and a 20-core CPU.  It offers the Grace Blackwell (GB10) architecture.
 
 I am also aiming for an enterprise grade delivery model.  Thus I am using a Mesh VPN service (TailScale) and using Docker containerisation to ensure reproducible, isolated deployments.
 
-I've gone some way with system tuning, there is always more to do.  But I am using the famed Nvidia FP4 precision for the model since this is the key strength of the DGX Spark.  This makes my pre-fill phase extremely fast.  It absorbs a prompt very quickly.  The slow part of the architecture is the memory throughput.  This is seen as slow decode phase.  This is the part where the model is generating tokens.
-If I had a maximum configuration Mac Studio, I'd see the converse problem: fast decode, but slow pre-fill. 
+I've gone some way with system tuning, but there is always more to do.  I am using the famed Nvidia FP4 precision for the model since this is the key strength of the DGX Spark.  This makes my pre-fill phase extremely fast.  It absorbs a prompt very quickly.  The slow part of the architecture is the memory throughput.  This is seen as a slow decode phase.  This is the part where the model is generating tokens.
+If I had a maximum configuration Mac Studio, I'd see the converse problem: fast decode, but relatively slow pre-fill. 
 
 Xcode speaks the OpenAI Chat Completions protocol for its AI coding features, which means any OpenAI-compatible endpoint will work. We exploit this by running a state-of-the-art open model on an NVIDIA DGX Spark and proxying it with a protocol decoder in the Mac where Xcode runs.
 
