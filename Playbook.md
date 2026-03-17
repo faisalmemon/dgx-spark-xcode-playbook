@@ -6,7 +6,7 @@ This playbook shows how to give Apple Xcode its own private, locally-hosted codi
 
 I am aiming here for a "Pro-Developer" setup which is attempting to get close to the enterprise offerings from Claude or OpenAI.  So my "AI token" server is a Nvidia DGX Spark (a 1 PetaFLOP computer at FP4 precision).  The Spark has 128GB RAM (shared between CPU and GPU) and 4 TB storage, and a 20-core CPU.  It offers the Grace Blackwell (GB10) architecture.
 
-I am also aiming for a enterprise grade delivery model.  Thus I am using a Mesh VPN service (TailScale) and using Docker containerisation to ensure reproducible, isolated deployments.
+I am also aiming for an enterprise grade delivery model.  Thus I am using a Mesh VPN service (TailScale) and using Docker containerisation to ensure reproducible, isolated deployments.
 
 I've gone some way with system tuning, there is always more to do.  But I am using the famed Nvidia FP4 precision for the model since this is the key strength of the DGX Spark.  This makes my pre-fill phase extremely fast.  It absorbs a prompt very quickly.  The slow part of the architecture is the memory throughput.  This is seen as slow decode phase.  This is the part where the model is generating tokens.
 If I had a maximum configuration Mac Studio, I'd see the converse problem: fast decode, but slow pre-fill. 
@@ -254,7 +254,7 @@ docker run -d --name open-webui \
   ghcr.io/open-webui/open-webui:main
 ```
 
-> **Startup time:** vLLM takes approximately 10 minutes to load the model into GPU memory. 
+> **Startup time:** vLLM takes approximately 10 minutes to load the model into GPU memory from boot up.  The first time you run the command it pulls down the 48 GiB model from Hugging Face into its local cache so that can take a while.
 
 Observe its progress on the Spark with 
 ```bash
