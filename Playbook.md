@@ -8,7 +8,7 @@ I am aiming here for a "Pro-Developer" setup which is attempting to get close to
 
 I am also aiming for a enterprise grade delivery model.  Thus I am using a Mesh VPN service (TailScale) and using Docker containerisation to ensure reproducible, isolated deployments.
 
-I've gone some way with system tuning, there is always more to do.  But I am using the famed Nvidia FP4 precision for the model since this is the key strength of the DGX Spark.  This makes my pre-fill phase extremely fast.  It aborbs a prompt very quickly.  The slow part of the architecture is the memory throughput.  This is seen as slow decode phase.  This is the part where the model is generating tokens.
+I've gone some way with system tuning, there is always more to do.  But I am using the famed Nvidia FP4 precision for the model since this is the key strength of the DGX Spark.  This makes my pre-fill phase extremely fast.  It absorbs a prompt very quickly.  The slow part of the architecture is the memory throughput.  This is seen as slow decode phase.  This is the part where the model is generating tokens.
 If I had a maximum configuration Mac Studio, I'd see the converse problem: fast decode, but slow pre-fill. 
 
 Xcode speaks the OpenAI Chat Completions protocol for its AI coding features, which means any OpenAI-compatible endpoint will work. We exploit this by running a state-of-the-art open model on an NVIDIA DGX Spark and proxying it with a protocol decoder in the Mac where Xcode runs.
@@ -361,7 +361,17 @@ If you get a Swift code response, the full pipeline is working and Xcode will be
 
 ## Example Output
 
+Admittedly this is very light testing, but should give a sense for the strength and speed of the model.
 
+## Xcode-study-code
+https://github.com/user-attachments/assets/c4e723f2-5fc9-42ec-8a6d-3ce4bdfc0a48
+
+## Xcode-generate-test-code
+https://github.com/user-attachments/assets/fcde76c2-dda5-4f85-857b-467c76eddb86
+
+## open-webui-chat-experience
+
+https://github.com/user-attachments/assets/58fd8b04-ee19-4be6-a2f2-daed1d5719e0
 
 ---
 
